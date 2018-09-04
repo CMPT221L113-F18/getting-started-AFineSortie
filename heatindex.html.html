@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    <style>
+	  body {background-color: orange;}
+	  h1 {
+		color: blue;
+		font-family: Comic Sans MS;
+	  }
+	  p {
+		color: purple;
+		font-family: Comic Sans MS;
+	  }
+	  label {
+		color: red;
+		font-family: Comic Sans MS;
+		font-size: 1.5em;
+	  }
+	  output {
+		color: green;
+		font-family: Comic Sans MS;
+	  }
+    </style>
+    <title>Temperature and Heat Index Evaluator</title>
+    <meta charset="utf-8"/>
+  </head>
+  <body>
+    <h1>Temperature and Heat Index Evaluator</h1>
+    <p>This simple Web application allows you to enter the current temperature (in degrees Fahrenheit) and relative humidity (as a percentage) and will then assesses whether it is hot, cold, or some other appropriate adjective and also calculate the heat index.</p>
+    <form onsubmit="return false;">
+      <label>
+        Temp (F&deg;)
+        <input type="number" id="tempInput" value="0" />
+      </label>
+	  <br />
+	  <label>
+		Relative Humidity (%)
+		<input type="number" id="humidityInput" value="0" />
+	  </label>
+      <button onclick="assessTemperature();">Evaluate</button>
+	  <br />
+      <output id="result"></output>
+    </form>
+    <script>
+      function assessTemperature() {
+	    console.log('anything');
+        var inputElem = document.querySelector('#tempInput');
+		var inputElem2 = document.querySelector('#humidityInput');
+        var outputElem = document.querySelector('#result');
+        var temp = inputElem.value;
+		var relHumidity = inputElem2.value;
+		var heatIndex;
+        var feel;
+		
+		heatIndex = -42.379 + 2.04901523 * temp + 10.14333127 * relHumidity - 0.22475541 * temp * relHumidity - 0.00683783 * Math.pow(temp, 2) - 0.05481717 * 
+		Math.pow(relHumidity, 2) + 0.00122874 * Math.pow(temp, 2) * relHumidity + 0.00085282 * temp * Math.pow(relHumidity, 2) - 0.00000199 * Math.pow(temp, 2) * Math.pow(relHumidity, 2)
+
+		heatIndex = Math.round(heatIndex);
+		
+        if (temp > 90)
+          feel = 'hot';
+        else if (temp > 70)
+          feel = 'warm';
+        else if (temp > 50)
+          feel = 'nice';
+        else if (temp > 30)
+          feel = 'cool';
+        else
+          feel = 'cold';
+
+        outputElem.innerHTML = 'It is ' + feel + ' out there today. Heat index: ' + heatIndex + ' F&deg;'
+      }
+    </script>
+  </body>
+</html>
+
